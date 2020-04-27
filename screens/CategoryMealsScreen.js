@@ -2,32 +2,32 @@ import React from 'react';
 import {
   View,
   Text,
-  Button,
+  FlatList,
   StyleSheet
 } from 'react-native';
 
-import { CATEGORIES } from '../data/demo-data';
+import { CATEGORIES, MEALS } from '../data/demo-data';
 
 const CategoryMealsScreen = props => {
   const catId = props.navigation.getParam('categoryId');
 
-  const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
+  const displayedMeals =  MEALS.filter(meal => meal.categoryIds.indexOf(catId) >= 0);
+
+  const renderMealItem = itemData => {
+    return (
+      <View>
+        <Text>{itemData.item.title}</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.screen}>
-      <Text>The Category Meal Screen</Text>
-      <Text>{selectedCategory.title}</Text>
-      <Button title="Detail Meal" onPress={() => {
-        props.navigation.navigate({
-          routeName: 'MealDetail'
-        })
-      }}/>
-      <Button title="Go Back" onPress={() => {
-        props.navigation.goBack();
-        // This pop method has the same effect but it is only available in stacknavigation
-        // props.navigation.pop();
-        }
-      }/>
+      <FlatList
+        keyExtractor={(item, index) => item.id}
+        data={displayedMeals}
+        renderItem={renderMealItem}
+      />
     </View>
   );
 };

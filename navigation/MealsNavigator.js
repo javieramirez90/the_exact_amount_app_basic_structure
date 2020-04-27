@@ -17,22 +17,17 @@ const topBar = {
 const MealsNavigator = createStackNavigator({
   Categories: {
     screen: CategoriesScreen,
-    navigationOptions: {
-      ...topBar
-    }
   },
   CategoryMeals: {
     screen: CategoryMealsScreen,
-    navigationOptions: {
-      ...topBar
-    }
   },
 
   MealDetail: {
     screen: MealDetailScreen,
-    navigationOptions: {
-      ...topBar
-    }
+  }
+},{
+  defaultNavigationOptions:{
+    ...topBar
   }
 });
 
