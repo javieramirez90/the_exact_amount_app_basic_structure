@@ -7,17 +7,25 @@ import {
 } from 'react-native';
 
 import { CATEGORIES, MEALS } from '../data/demo-data';
+import MealItem from '../components/MealItem';
 
 const CategoryMealsScreen = props => {
   const catId = props.navigation.getParam('categoryId');
 
   const displayedMeals =  MEALS.filter(meal => meal.categoryIds.indexOf(catId) >= 0);
 
+  const onSelectMeal = (mealData) => {
+    props.navigation.navigate({
+      routeName: 'MealDetail',
+      params: {
+        mealData
+      }
+    })
+  };
+
   const renderMealItem = itemData => {
     return (
-      <View>
-        <Text>{itemData.item.title}</Text>
-      </View>
+      <MealItem itemData={itemData} onSelectMeal={() => onSelectMeal(itemData)}/>
     );
   };
 
@@ -27,6 +35,7 @@ const CategoryMealsScreen = props => {
         keyExtractor={(item, index) => item.id}
         data={displayedMeals}
         renderItem={renderMealItem}
+        style={{width: '100%'}}
       />
     </View>
   );

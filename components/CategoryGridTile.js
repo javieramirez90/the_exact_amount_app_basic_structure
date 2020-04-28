@@ -29,7 +29,7 @@ const CategoryGridTile = (props) => {
             })
         }}
       >
-        <View style={{...styles.container, }}>
+        <View style={{...styles.container }}>
           <Text style={styles.title} numberOfLines={2} >{props.itemData.item.title}</Text>
         </View>
       </TouchableComponent>
@@ -46,6 +46,7 @@ const styles =  StyleSheet.create({
     margin: 15,
     height: 150,
     borderRadius: 10,
+    elevation: 3,
     overflow: 'hidden'
   },
   container: {
