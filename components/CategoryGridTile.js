@@ -65,7 +65,15 @@ const styles =  StyleSheet.create({
     fontFamily: 'open-sans-bold',
     color: 'white',
     fontSize: 19,
-    textAlign: 'right'
+    textAlign: 'right',
+
+
+      color:'#FFFFFF',
+      // paddingLeft:30,
+      // paddingRight:30,
+      textShadowColor:'#585858',
+      textShadowOffset:{width: 5, height: 5},
+      textShadowRadius:10,
   },
   backgroundImage: {
     flex: 1,

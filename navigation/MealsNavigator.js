@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
-import { Platform } from 'react-native';
+import { Text, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import CategoriesScreen from '../screens/CategoriesScreen';
@@ -21,6 +21,12 @@ import Colors from '../constants/Colors';
 const topBar = {
   headerStyle: {
     backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
+  },
+  headerTitleStyle: {
+    fontFamily: 'open-sans-bold'
+  },
+  headerBackTitleStyle: {
+    fontFamily: 'open-sans'
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor
 }
@@ -63,7 +69,8 @@ const tabScreenConfig = {
         return <Ionicons name="ios-restaurant" size={23} color={tabInfo.tintColor}/>
       },
       // TABBARCOLOR ONLY HAVE EFFECT IF SHIFTING IS TRUE OR ADDING THE BARSTYLE PROPERTY
-      tabBarColor: Colors.primaryColor
+      tabBarColor: Colors.primaryColor,
+      tabBarLabel: Platform.OS === 'android' ? <Text style={{fontFamily: 'open-sans-bold'}}>Meals!</Text> : 'Meals!'
     }
   },
   Favorites: {
@@ -85,28 +92,51 @@ const MealsFavTabNavigator = Platform.OS === 'android'
     shifting: true,
     // barStyle: {
     //   backfaceVisibility: Colors.primaryColor
-    // }
+    // },
+
     })
   : createBottomTabNavigator(tabScreenConfig, {
   tabBarOptions: {
+    labelStyle: {
+      fontFamily: 'open-sans-bold'
+    },
     activeTintColor: Colors.accentColor
   }
 });
 
 const FiltersNavigator = createStackNavigator({
   Filters: FiltersScreen
+}, {
+  // navigationOptions: {
+
+  // },
+  defaultNavigationOptions:{
+    ...topBar
+  }
 });
 
 FiltersNavigator.navigationOptions = {
-  headerTitle: 'Filter Meals'
+  headerTitle: 'Filter Meals',
+  drawerLabel: 'Filters'
 };
 
 const MainNavigator = createDrawerNavigator({
   MealsFavs: {
-    screen: MealsFavTabNavigator
+    screen: MealsFavTabNavigator,
+    navigationOptions: {
+      drawerLabel: 'Meals'
+    }
   },
   Filter: {
     screen: FiltersNavigator
+  }
+}, {
+  contentOptions:{
+    activeTintColor: Colors.accentColor,
+    labelStyle: {
+      textAlign: 'center',
+      fontFamily: 'open-sans-bold'
+    }
   }
 });
 
