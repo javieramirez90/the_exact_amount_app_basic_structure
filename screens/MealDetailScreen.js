@@ -5,6 +5,7 @@ import {
   Image,
   Text,
   Button,
+  Alert,
   StyleSheet
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -22,6 +23,29 @@ const ListItem = props => {
     );
 };
 
+const dispatchAlert = (status) => {
+  if(!status) {
+    Alert.alert(
+      "Favorites",
+      "Meal added to favorites",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+  } else {
+    Alert.alert(
+      "Favorites",
+      "Meal removed from favorites",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
+  };
+};
+
+
 const MealDetailScreen = props => {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -32,6 +56,7 @@ const MealDetailScreen = props => {
   const toggleFavoriteHandler = useCallback(() => {
     dispatch(toggleFavorite(mealData.item.id));
     setIsFavorite(!isFavorite)
+    dispatchAlert(isFavorite)
   }, [dispatch, mealData, isFavorite]);
 
   const favoriteMeals =  useSelector(state => state.meals.favoriteMeals);

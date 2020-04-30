@@ -21,22 +21,23 @@ const mealsReducer = (state = initialState, action) => {
         return { ...state, favoriteMeals: updatedFavMeals.concat(meal) };
       }
     case SET_FILTERS:
-      const appliedFilters = actions.filters;
-      const filteredMeals = state.meals.filter(meal => {
+      const appliedFilters = action.filters;
+      const updatedFilteredMeals = state.meals.filter(meal => {
         if(appliedFilters.glutenFree && !meal.isGluttenFree){
-          false;
+          return false;
         }
         if(appliedFilters.vegan && !meal.isVegan){
-          false;
+          return false;
         }
         if(appliedFilters.vegetarian && !meal.isVegetarian){
-          false;
+          return false;
         }
         if(appliedFilters.lactoseFree && !meal.isLactoseFree){
-          false;
+          return false;
         }
         return true;
       });
+      return { ...state, filteredMeals: updatedFilteredMeals }
     default:
       return state;
   }

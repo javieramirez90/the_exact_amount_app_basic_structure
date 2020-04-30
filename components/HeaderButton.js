@@ -15,8 +15,4 @@ const CustomHeaderButton = props => {
   />)
 };
 
-// const styles = StyleSheet.create({
-
-// });
-
 export default CustomHeaderButton;
